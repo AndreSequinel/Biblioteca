@@ -2,4 +2,38 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/Biblioteca/FileContentIndex
+# Build
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Configurações locais sensíveis
+appsettings.Development.json
+
+# Logs
+*.log
+logs/
+
+# Pacotes NuGet
+*.nupkg
+packages/
+
+# Banco de dados local (SQLite)
+*.db
+*.db-shm
+*.db-wal
+
+# Publicação
+publish/
+/.vs/ProjectEvaluation/biblioteca.metadata.v9.bin
+/.vs/ProjectEvaluation/biblioteca.projects.v9.bin
+/.vs/ProjectEvaluation/biblioteca.strings.v9.bin
+/.vs/ProjectEvaluation/biblioteca.metadata.v9.bin
+/.vs/ProjectEvaluation/biblioteca.projects.v9.bin
+/.vs/ProjectEvaluation/biblioteca.strings.v9.bin
