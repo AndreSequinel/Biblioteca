@@ -31,10 +31,26 @@ namespace Biblioteca.Controller
         }
 
         [HttpPost]
-        public async Task<IActionResult> Criar([FromBody] LivroRequestDto dto)
+        public async Task<IActionResult> Criar([FromBody] List<LivroRequestDto> dto)
         {
             var criado = await _livroService.CriarAsync(dto);
-            return CreatedAtAction(nameof(Get), new { id = criado.Id }, criado);
+            return Ok(criado);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Atualizar(int id, [FromBody]LivroRequestDto dto)
+        {
+            var atualizado = await _livroService.AtualizarAsync(id, dto);
+
+            return Ok(atualizado);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Deletar(int id)
+        {
+            var deletado = await _livroService.DeletarAsync(id);
+
+            return Ok(deletado);
         }
     }
 }

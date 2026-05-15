@@ -13,9 +13,13 @@ public class LivroRepository : ILivroRepository
         _appDbContext = appDbContext;
     }
 
-    public async Task<Livro> CriarAsync(Livro livro)
+    public async Task<List<Livro>> CriarAsync(List<Livro> livro)
     {
-        _appDbContext.Livros.Add(livro);
+        foreach (Livro x in livro)
+        {
+            _appDbContext.Livros.Add(x);
+        };
+        
         await _appDbContext.SaveChangesAsync();
         return livro;
     }

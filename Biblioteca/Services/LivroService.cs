@@ -20,28 +20,35 @@ public class LivroService : ILivroService
 
     public async Task<LivroResponseDto?> AtualizarAsync(int id, LivroRequestDto dto)
     {
-        var livro = new Livro
-        {
-            Titulo = dto.Titulo,
-            AnoDeLancamento = dto.AnoDeLancamento,
-            Editora = dto.Editora
-        };
+        var livro = await livroRepository.ObterPorIdAsync(id);
+
+        if (livro is null)
+            return null;
+
+        if (!string.IsNullOrEmpty(dto.Titulo))
+            livro!.Titulo = dto.Titulo;
+
+        if (dto.AnoDeLancamento != null)
+            livro!.AnoDeLancamento = dto.AnoDeLancamento;
+
+        if (!string.IsNullOrEmpty(dto.Editora))
+            livro!.Editora = dto.Editora;
 
         var livroAtualizado = await livroRepository.AtualizarAsync(id, livro);
         return livroAtualizado is null ? null : ParaDto(livroAtualizado);
     }
 
-    public async Task<LivroResponseDto> CriarAsync(LivroRequestDto dto)
+    public async Task<List<LivroResponseDto>> CriarAsync(List<LivroRequestDto> dto)
     {
-        var livro = new Livro
+        var listaLivros = dto.Select(x => new Livro
         {
-            Titulo = dto.Titulo,
-            AnoDeLancamento = dto.AnoDeLancamento,
-            Editora = dto.Editora
-        };
+            Titulo = x.Titulo,
+            AnoDeLancamento = x.AnoDeLancamento,
+            Editora =  x.Editora
+        }).ToList();
 
-        var livroCriado = await livroRepository.CriarAsync(livro);
-        return ParaDto(livroCriado);
+        var livroCriado = await livroRepository.CriarAsync(listaLivros);
+        return livroCriado.Select(ParaDto).ToList();
     }
 
     public async Task<bool> DeletarAsync(int id)

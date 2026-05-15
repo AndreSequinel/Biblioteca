@@ -7,6 +7,6 @@ public interface ILivroService
     Task<LivroResponseDto?> ObterPorIdAsync(int id);
     Task<LivroResponseDto?> AtualizarAsync(int id, LivroRequestDto dto);
     Task<IEnumerable<LivroResponseDto>> ObterTodosAsync();
-    Task<LivroResponseDto> CriarAsync(LivroRequestDto dto);
+    Task<List<LivroResponseDto>> CriarAsync(List<LivroRequestDto> dto);
     Task<bool> DeletarAsync(int id);
 }
