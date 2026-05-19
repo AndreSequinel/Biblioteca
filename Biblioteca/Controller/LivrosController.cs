@@ -1,12 +1,14 @@
 ﻿using Biblioteca.DTOs;
 using Biblioteca.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Biblioteca.Controller
 {
-    [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
+    [Route("api/[controller]")]
     public class LivrosController : ControllerBase
     {
         private readonly ILivroService _livroService;
@@ -23,7 +25,7 @@ namespace Biblioteca.Controller
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             var livro = await _livroService.ObterPorIdAsync(id);
             if (livro == null) return NotFound();
